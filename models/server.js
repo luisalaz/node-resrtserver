@@ -1,5 +1,6 @@
 const express = require('express')
 var cors = require('cors');
+const {dbConnection} = require('../database/config')
 
 class Server {
 
@@ -8,10 +9,19 @@ class Server {
         this.port = process.env.PORT;
         this.userPath = '/api/users';
 
+        //Conectar a la BD
+        this.connectDB();
+
         //Middlewares (funciones que agregan funcionalidad a mi ws (siempre se ejecuta cuando se levanta el servidor))
         this.middlewares();
         //rutas de mi app
         this.routes();
+    }
+
+    async connectDB(){
+
+        await dbConnection();
+
     }
 
     middlewares(){
