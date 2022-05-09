@@ -69,11 +69,18 @@ const userPut = async(req, res = response) => {
 const userDelete = async (req, res = response) => {
     const {id} = req.params;
 
+    const uid = req.uid;//se obtiene desde el middleware validate-jwt
+
     //const user = await User.findByIdAndDelete(id);
 
     const user = await User.findByIdAndUpdate(id, {status:false});
+
+    const userAthenticated = req.user;//se obtiene desde el middleware validate-jwt
     
-    res.json(user);
+    res.json({
+        user,
+        userAthenticated
+    });
 }
 
 
