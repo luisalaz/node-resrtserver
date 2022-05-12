@@ -1,5 +1,5 @@
 const Rol = require('../models/rol');
-const User = require('../models/user');
+const {User, Category, Product} = require('../models');
 
 const existRol = async (rol='') =>{
     const existRol = await Rol.findOne({rol});
@@ -22,8 +22,32 @@ const existUserById = async (id='') =>{
     const existUser = await User.findOne({id});
 
     if ( !existUser) {
-        throw new Error(`El Usuario con id ${email} no se encuentra registrado en la bd`);
+        throw new Error(`El Usuario con id ${id} no se encuentra registrado en la bd`);
     }
 }
 
-module.exports = { existRol, existEmail, existUserById}
+const existCategoryById = async (id='') =>{
+
+    const existCategory = await Category.findById(id);
+
+    if ( !existCategory) {
+        throw new Error(`La categoria con id ${id} no se encuentra registrado en la bd`);
+    }
+}
+
+const existProductById = async (id='') =>{
+
+    const existProduct = await Product.findById(id);
+
+    if ( !existProduct) {
+        throw new Error(`El producto con id ${id} no se encuentra registrado en la bd`);
+    }
+}
+
+module.exports = { 
+    existRol,
+    existEmail, 
+    existUserById, 
+    existCategoryById,
+    existProductById
+}
